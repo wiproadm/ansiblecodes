@@ -1,4 +1,3 @@
-lamp.yml
 ---
 - hosts: all
   sudo: yes
