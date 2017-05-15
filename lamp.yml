@@ -1,14 +1,17 @@
 ---
+- name: Hello World Sample
+  hosts: all
+
 # These tasks install apache, mysql & php modules
+  tasks
+  - name: Install LAMP
+    yum: name={{ item }} state=present
+    with_items:
+     - apach2
+     - php5
+     - php5-mysql
+     - git
+     - mysql-server
 
-- name: Install LAMP
-  yum: name={{ item }} state=present
-  with_items:
-   - apach2
-   - php5
-   - php5-mysql
-   - git
-   - mysql-server
-
-- name: Apacher service state
-  service: name=apache2 state=started enabled=yes
+  - name: Apacher service state
+    service: name=apache2 state=started enabled=yes
