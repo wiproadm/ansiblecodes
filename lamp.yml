@@ -1,4 +1,4 @@
-php.yml
+lamp.yml
 ---
 - hosts: all
   sudo: yes
