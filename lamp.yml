@@ -5,4 +5,4 @@
   tasks:
 
   - name: install packages
-    apt: name=apache2 update_cache=yes state=latest
+    yum: name=httpd state=latest
