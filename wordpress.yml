@@ -1,5 +1,5 @@
 ---
- - hosts: miqvm0010
+ - hosts: all
    become: true
    tasks:
     - name: "disable selinux"
