@@ -1,0 +1,42 @@
+---
+ - hosts: all
+   become: true
+   vars:
+    packages: [ 'httpd', 'unzip', 'mariadb-server', 'mariadb', 'mariadb', 'php', 'php-mysql', 'php-gd', 'php-ldap', 'php-odbc', 'php-pear', 'php-xml', 'php-xmlrpc', 'php-mbstring', 'php-snmp', 'php-soap', 'curl' ]
+   tasks:
+    - name: disable selinux
+      command: setenforce 0
+    - name: Install Package
+      apt: name={{ item }} state=latest
+      with_items: packages
+    - name: start httpd Service
+      service: name=httpd state=started enabled=yes
+    - name: start mariadb Service
+      service: name=mariadb state=started enabled=yes
+    - name: Set MySQL root password
+      command: mysqladmin -u root password rootpassword && touch /tmp/done
+      creates: /tmp/done
+    - name: Copy mysql commands file into /tmp
+      get_url:
+        url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/mysqlcommands
+        dest: /tmp/mysqlcommands
+    - name: Setup database for wordpress
+      command: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /tmp/dbdone
+      creates: /tmp/dbdone
+    - name: Download Wordpress
+        get_url:
+        url: https://wordpress.org/latest.zip
+        dest: /tmp/latest.zip
+    - name: Unzip Wordpress Zip file
+      command: unzip /tmp/latest.zip -d /var/www/html
+      creates: /var/www/html/wordpress/index.php
+    - name: HTML Directory Permissions
+      command: chmod -R 775 /var/www/html/wordpress
+    - name: HTML Directory Owner
+      command: chown -R apache:apache /var/www/html/wordpress
+    - name: Copy mysql commands file into /tmp
+      get_url:
+        url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/wp-config-sample.php
+        dest: /var/www/html/wordpress/wp-config.php
+    - name: Restart HTTPD
+      command: systemctl restart httpd
