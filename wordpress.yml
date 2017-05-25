@@ -49,7 +49,7 @@
       command: chmod -R 775 /var/www/html/wordpress
     - name: "HTML Directory Owner"
       command: chown -R apache:apache /var/www/html/wordpress
-    - name: "Copy mysql commands file into /tmp"
+    - name: "Copy Wordpress Config File in Target Location"
       get_url:
         url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/wp-config-sample.php
         dest: /var/www/html/wordpress/wp-config.php
