@@ -5,7 +5,7 @@
     - name: disable selinux
       command: setenforce 0
     - name: Install Package
-      apt: name={{ item }} state=latest
+      yum: name={{ item }} state=latest
       with_items:
         - httpd
 #        - unzip
