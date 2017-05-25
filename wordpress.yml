@@ -28,7 +28,7 @@
     - name: "start mariadb Service"
       service: name=mariadb state=started enabled=yes
     - name: "Set MySQL root password"
-      command: mysqladmin -u root password rootpassword && touch /var/rootpwd
+      shell: mysqladmin -u root password rootpassword && touch /var/rootpwd
       args:
         creates: /var/rootpwd
     - name: "Copy mysql commands file into /tmp"
@@ -36,7 +36,7 @@
         url: https://raw.githubusercontent.com/abhradip/ansible/master/mysqlcommands
         dest: /tmp/mysqlcommands
     - name: "Setup database for wordpress"
-      command: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /var/donemysqlcmd
+      shell: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /var/donemysqlcmd
       args:
         creates: /var/donemysqlcmd
     - name: "Download Wordpress"
@@ -44,24 +44,24 @@
         url: https://wordpress.org/latest.zip
         dest: /tmp/latest.zip
     - name: "Unzip Wordpress Zip file"
-      command: unzip /tmp/latest.zip -d /var/wordpress
+      shell: unzip /tmp/latest.zip -d /var/wordpress
       args:
         creates: /var/wordpress/wordpress/index.php
     - name: "Copy wordpress files to webroot"
-      command: cp -r /var/wordpress/wordpress/* /var/www/html
+      shell: cp -r /var/wordpress/wordpress/* /var/www/html
       args:
         creates: /var/www/html/index.php
     - name: "Remove Index.html"
-      command: rm -f /var/www/html/index.html
+      shell: rm -f /var/www/html/index.html
       args:
         removes: /var/www/html/index.html
     - name: "HTML Directory Permissions"
-      command: chmod -R 775 /var/www/html
+      shell: chmod -R 775 /var/www/html
     - name: "HTML Directory Owner"
-      command: chown -R apache:apache /var/www/html
+      shell: chown -R apache:apache /var/www/html
     - name: "Copy Wordpress Config File in Target Location"
       get_url:
         url: https://raw.githubusercontent.com/abhradip/ansible/master/wp-config-sample.php
         dest: /var/www/html/wp-config.php
     - name: "Restart HTTPD"
-      command: systemctl restart httpd
+      shell: systemctl restart httpd
