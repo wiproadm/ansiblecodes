@@ -34,7 +34,8 @@
         url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/mysqlcommands
         dest: /tmp/mysqlcommands
     - name: "Setup database for wordpress"
-      command: mysql -uroot -prootpassword < /tmp/mysqlcommands
+      command: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /var/donemysqlcmd
+      creates: /var/donemysqlcmd
     - name: "Download Wordpress"
       get_url:
         url: https://wordpress.org/latest.zip
