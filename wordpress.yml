@@ -8,25 +8,25 @@
       yum: name={{ item }} state=latest
       with_items:
         - httpd
-#        - unzip
-#        - mariadb-server
-#        - mariadb
-#        - php
-#        - php-mysql
-#        - php-gd
-#        - php-ldap
-#        - php-odbc
-#        - php-pear
-#        - php-xml
-#        - php-xmlrpc
-#        - php-mbstring
-#        - php-snmp
-#        - php-soap
-#        - curl
-#    - name: start httpd Service
-#      service: name=httpd state=started enabled=yes
-#    - name: start mariadb Service
-#      service: name=mariadb state=started enabled=yes
+        - unzip
+        - mariadb-server
+        - mariadb
+        - php
+        - php-mysql
+        - php-gd
+        - php-ldap
+        - php-odbc
+        - php-pear
+        - php-xml
+        - php-xmlrpc
+        - php-mbstring
+        - php-snmp
+        - php-soap
+        - curl
+    - name: start httpd Service
+      service: name=httpd state=started enabled=yes
+    - name: start mariadb Service
+      service: name=mariadb state=started enabled=yes
 #    - name: Set MySQL root password
 #      command: mysqladmin -u root password rootpassword && touch /tmp/done
 #      creates: /tmp/done
