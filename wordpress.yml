@@ -24,7 +24,7 @@
       command: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /tmp/dbdone
       creates: /tmp/dbdone
     - name: Download Wordpress
-        get_url:
+      get_url:
         url: https://wordpress.org/latest.zip
         dest: /tmp/latest.zip
     - name: Unzip Wordpress Zip file
