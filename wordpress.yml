@@ -56,12 +56,12 @@
       args:
         removes: /var/www/html/index.html
     - name: "HTML Directory Permissions"
-      command: chmod -R 775 /var/www/html/wordpress
+      command: chmod -R 775 /var/www/html
     - name: "HTML Directory Owner"
-      command: chown -R apache:apache /var/www/html/wordpress
+      command: chown -R apache:apache /var/www/html
     - name: "Copy Wordpress Config File in Target Location"
       get_url:
         url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/wp-config-sample.php
-        dest: /var/www/html/wordpress/wp-config.php
+        dest: /var/www/html/wp-config.php
     - name: "Restart HTTPD"
       command: systemctl restart httpd
