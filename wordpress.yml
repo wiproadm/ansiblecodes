@@ -13,8 +13,8 @@
       service: name=httpd state=started enabled=yes
     - name: start mariadb Service
       service: name=mariadb state=started enabled=yes
-    - name: set MySQL root password
-      command: mysqladmin -u root password rootpassword && touch /tmp/done
+#    - name: set MySQL root password
+#      command: mysqladmin -u root password rootpassword && touch /tmp/done
       creates: /tmp/done
     - name: Copy mysql commands file into /tmp
       get_url:
