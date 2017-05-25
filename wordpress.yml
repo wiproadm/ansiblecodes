@@ -27,16 +27,14 @@
       service: name=httpd state=started enabled=yes
     - name: "start mariadb Service"
       service: name=mariadb state=started enabled=yes
-#    - name: "Set MySQL root password"
-#      command: mysqladmin -u root password rootpassword && touch /tmp/done
-#      creates: /tmp/done
+    - name: "Set MySQL root password"
+      command: mysqladmin -u root password rootpassword
     - name: "Copy mysql commands file into /tmp"
       get_url:
         url: https://raw.githubusercontent.com/roybhaskar9/chefwordpress/master/files/default/mysqlcommands
         dest: /tmp/mysqlcommands
     - name: "Setup database for wordpress"
-      command: mysql -uroot -prootpassword < /tmp/mysqlcommands && touch /tmp/dbdone
-      creates: /tmp/dbdone
+      command: mysql -uroot -prootpassword < /tmp/mysqlcommands
     - name: "Download Wordpress"
       get_url:
         url: https://wordpress.org/latest.zip
