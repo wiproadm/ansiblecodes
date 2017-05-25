@@ -48,7 +48,7 @@
       args:
         creates: /var/wordpress/wordpress/index.php
     - name: "Copy wordpress files to webroot"
-      command: cp -r /var/wordpress/wordpress/* /var/www/html/
+      command: cp -r /var/wordpress/wordpress/* /var/www/html
       args:
         creates: /var/www/html/index.php
     - name: "Remove Index.html"
