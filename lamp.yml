@@ -5,6 +5,6 @@
   tasks:
 
   - name: install packages
-    yum: name=httpd state=latest
+    yum: name=httpd state=present
   - name: start service
     service: name=httpd state=started enabled=yes
